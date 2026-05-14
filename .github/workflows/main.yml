@@ -4,31 +4,32 @@ on: [push, pull_request]
 
 jobs:
   build:
-    # ĐÁP ỨNG BÀI 4: Tự động tạo ra 3 máy ảo chạy song song
     strategy:
+      fail-fast: false # Để 1 máy lỗi các máy khác vẫn chạy tiếp cho bạn dễ soi
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v4
+      
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: 'maven' # ĐÁP ỨNG BÀI 6: Caching
+          cache: 'maven'
 
       - name: Build and Verify
-        # Lệnh này sẽ chạy toàn bộ Test, Checkstyle và tạo báo cáo JaCoCo
+        # Dùng -DskipTests nếu bạn muốn nó xanh nhanh để kiểm tra matrix trước
+        # Hoặc để nguyên để nó chạy test thực tế
         run: mvn clean verify 
 
-      # ĐÁP ỨNG BÀI 3, 5, 8: Gom file .jar và báo cáo lại để nộp
       - name: Upload Artifacts
-        if: matrix.os == 'ubuntu-latest'
+        if: always() && matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: Exercise-Results
+          name: Exercise-Reports
           path: |
             **/target/*.jar
             **/target/site/jacoco/
