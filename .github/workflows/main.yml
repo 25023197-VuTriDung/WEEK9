@@ -1,4 +1,4 @@
-name: Compile All Java Files
+name: Java CI with Maven
 
 on: [push]
 
@@ -7,15 +7,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
+      
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
+          cache: maven
 
-      - name: Compile all .java files in all subdirectories
+      - name: Build and Test each project
         run: |
-          find . -name "*.java" -print0 | xargs -0 javac
+          for dir in Bai*/ ; do
+            if [ -f "$dir/pom.xml" ]; then
+              echo "Building $dir..."
+              mvn -B package --file "$dir/pom.xml"
+            else
+              echo "Skipping $dir (no pom.xml found)"
+            fi
+          done
