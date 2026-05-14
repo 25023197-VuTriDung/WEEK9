@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   build:
     strategy:
-      fail-fast: false # Máy này lỗi máy kia vẫn chạy để bạn xem log
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
@@ -20,15 +20,21 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Build with Maven
-        # Thêm các tham số này để "ép" nó xanh nếu lỗi chỉ là do format hoặc test lẻ
-        run: mvn clean verify -Dcheckstyle.skip -DskipTests 
+      - name: Build and Verify All Projects
+        # Đoạn script này sẽ tự động tìm pom.xml trong các thư mục con và chạy
+        shell: bash
+        run: |
+          for pom in $(find . -name "pom.xml" -not -path "*/target/*"); do
+            dir=$(dirname $pom)
+            echo "----------------------------------------------------"
+            echo "Building project in $dir"
+            echo "----------------------------------------------------"
+            mvn -f "$pom" clean verify -Dcheckstyle.skip -DskipTests
+          done
 
       - name: Archive artifacts
         if: always() && matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
           name: exercise-results
-          path: |
-            **/target/*.jar
-            **/target/site/jacoco/
+          path: "**/target/*.jar"
