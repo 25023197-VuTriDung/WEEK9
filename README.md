@@ -143,9 +143,6 @@ Lệnh chạy: `mvn clean package -DskipTests`
 <code>mvn clean package -DskipTests</code>
 
 Lệnh này biên dịch source code và sinh ra file `.jar` trong thư mục `target/`.
-```
-
-Lệnh này biên dịch source code và sinh ra file `.jar` trong thư mục `target/`.
 
 **Nếu chưa có Maven:**
 - **macOS**: `brew install maven`
