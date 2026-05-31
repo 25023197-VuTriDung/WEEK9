@@ -2,7 +2,7 @@
 
 Dựa trên codebase được phân tích, dưới đây là file README.md có cấu trúc chi tiết:
 
-```markdown
+
 # Auction System — Hệ Thống Đấu Giá Trực Tuyến
 
 Bài tập lớn môn **Lập Trình Nâng Cao** — Mô hình Client–Server, giao tiếp TCP Socket, giao diện JavaFX.
