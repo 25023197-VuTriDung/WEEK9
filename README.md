@@ -45,90 +45,85 @@ Hệ thống cho phép người dùng:
 ## 📁 Cấu Trúc Thư Mục
 
 ```
-Baitaplon_LTNC/
-├── pom.xml                          ← Parent POM (single module)
-│
-├── src/main/java/com/biddingapp/
-│   ├── client/
-│   │   ├── view/
-│   │   │   ├── Launcher.java        ← Entry point (khởi tạo SocketClient)
-│   │   │   └── HelloApplication.java ← JavaFX Application
-│   │   ├── controller/
-│   │   │   ├── LoginController.java
-│   │   │   ├── RegisterController.java
-│   │   │   ├── AdminController.java
-│   │   │   ├── SellerController.java
-│   │   │   ├── BidderController.java
-│   │   │   └── HelloController.java  ← Controller cũ (demo)
-│   │   ├── helper/
-│   │   │   └── ModernUI.java        ← UI utilities
-│   │   └── SocketClient.java        ← TCP Socket client
-│   │
-│   ├── sever/                       ← ⚠️ Tên folder bị sai chính tả (server)
-│   │   ├── AuctionSever.java        ← TCP Socket server
-│   │   └── service/
-│   │       ├── BiddingService.java
-│   │       ├── AutoBiddingEngine.java
-│   │       └── AuctionExpiryTask.java
-│   │
-│   ├── service/
-│   │   ├── DemoDataStore.java       ← In-memory data store
-│   │   ├── AuctionService.java      ← Business logic
-│   │   ├── WalletService.java       ← Quản lý ví
-│   │   ├── OrderService.java        ← Quản lý đơn hàng
-│   │   ├── NotificationService.java ← Thông báo
-│   │   └── DomainMapper.java        ← Mapping utilities
-│   │
-│   ├── database/
-│   │   ├── DatabaseConnection.java
-│   │   ├── DatabaseSettings.java
-│   │   ├── DatabaseStore.java
-│   │   └── dao/
-│   │       ├── UserDao.java
-│   │       ├── ProductDao.java
-│   │       ├── AuctionModelDao.java
-│   │       ├── BidDao.java
-│   │       ├── WalletDao.java
-│   │       ├── OrderDao.java
-│   │       └── ...
-│   │
-│   ├── model/
-│   │   ├── User.java
-│   │   ├── Product.java
-│   │   ├── Auction.java
-│   │   ├── Bid.java
-│   │   ├── Wallet.java
-│   │   ├── Order.java
-│   │   ├── Notification.java
-│   │   ├── DomainEnums.java
-│   │   └── ...
-│   │
-│   └── common/
-│       ├── NetworkConfig.java
-│       └── security/
-│           ├── AccountValidation.java
-│           └── PasswordHasher.java
-│
-├── src/main/resources/com/biddingapp/client/view/
-│   ├── Login-View.fxml
-│   ├── Register-View.fxml
-│   ├── Admin-View.fxml
-│   ├── Seller-View.fxml
-│   ├── Bidder-View.fxml
-│   ├── Hello-View.fxml
-│   ├── Dashboard.fxml
-│   └── auction-pro.css
-│
-├── database/
-│   ├── schema.sql               ← Script tạo CSDL
-│   └── README.md                ← Hướng dẫn database
-│
-├── docs/
-│   ├── codebase-walkthrough.md  ← Hướng dẫn đọc code
-│   └── three-machine-runbook.md ← Chạy trên 3 máy
-│
-└── README.md                    ← File này
+# Cấu trúc dự án (Project Structure)
 
+```text
+Baitaplon_LTNC/
+├── pom.xml (Parent POM - single module)
+├── src/
+│   ├── main/
+│   │   ├── java/com/biddingapp/
+│   │   │   ├── Launcher.java (Entry point - khởi tạo SocketClient)
+│   │   │   ├── client/
+│   │   │   │   ├── HelloApplication.java (JavaFX Application)
+│   │   │   │   ├── view/
+│   │   │   │   └── controller/
+│   │   │   │       ├── LoginController.java
+│   │   │   │       ├── RegisterController.java
+│   │   │   │       ├── AdminController.java
+│   │   │   │       ├── SellerController.java
+│   │   │   │       ├── BidderController.java
+│   │   │   │       ├── HelloController.java (Controller cũ - demo)
+│   │   │   │       └── helper/
+│   │   │   │           └── ModernUI.java (UI utilities)
+│   │   │   ├── SocketClient.java (TCP Socket client)
+│   │   │   ├── sever/ (⚠️ Tên folder bị sai chính tả - đúng là server)
+│   │   │   │   ├── AuctionSever.java (TCP Socket server)
+│   │   │   │   └── service/
+│   │   │   │       ├── BiddingService.java
+│   │   │   │       ├── AutoBiddingEngine.java
+│   │   │   │       ├── AuctionExpiryTask.java
+│   │   │   │       └── service/
+│   │   │   │           ├── DemoDataStore.java (In-memory data store)
+│   │   │   │           ├── AuctionService.java (Business logic)
+│   │   │   │           ├── WalletService.java (Quản lý ví)
+│   │   │   │           ├── OrderService.java (Quản lý đơn hàng)
+│   │   │   │           ├── NotificationService.java (Thông báo)
+│   │   │   │           └── DomainMapper.java (Mapping utilities)
+│   │   │   ├── database/
+│   │   │   │   ├── DatabaseConnection.java
+│   │   │   │   ├── DatabaseSettings.java
+│   │   │   │   ├── DatabaseStore.java
+│   │   │   │   └── dao/
+│   │   │   │       ├── UserDao.java
+│   │   │   │       ├── ProductDao.java
+│   │   │   │       ├── AuctionModelDao.java
+│   │   │   │       ├── BidDao.java
+│   │   │   │       ├── WalletDao.java
+│   │   │   │       ├── OrderDao.java
+│   │   │   │       └── ...
+│   │   │   ├── model/
+│   │   │   │   ├── User.java
+│   │   │   │   ├── Product.java
+│   │   │   │   ├── Auction.java
+│   │   │   │   ├── Bid.java
+│   │   │   │   ├── Wallet.java
+│   │   │   │   ├── Order.java
+│   │   │   │   ├── Notification.java
+│   │   │   │   ├── DomainEnums.java
+│   │   │   │   └── ...
+│   │   │   └── common/
+│   │   │       ├── NetworkConfig.java
+│   │   │       └── security/
+│   │   │           ├── AccountValidation.java
+│   │   │           └── PasswordHasher.java
+│   │   └── resources/com/biddingapp/client/view/
+│   │       ├── Login-View.fxml
+│   │       ├── Register-View.fxml
+│   │       ├── Admin-View.fxml
+│   │       ├── Seller-View.fxml
+│   │       ├── Bidder-View.fxml
+│   │       ├── Hello-View.fxml
+│   │       ├── Dashboard.fxml
+│   │       └── auction-pro.css
+├── database/
+│   ├── schema.sql (Script tạo CSDL)
+│   └── README.md (Hướng dẫn database)
+├── docs/
+│   ├── codebase-walkthrough.md (Hướng dẫn đọc code)
+│   └── three-machine-runbook.md (Chạy trên 3 máy)
+└── README.md (File này)
+```
 
 
 ```
