@@ -123,7 +123,7 @@ Baitaplon_LTNC/
 │   ├── codebase-walkthrough.md (Hướng dẫn đọc code)
 │   └── three-machine-runbook.md (Chạy trên 3 máy)
 └── README.md (File này)
-```
+
 
 
 ```
@@ -136,8 +136,13 @@ Baitaplon_LTNC/
 
 Từ thư mục gốc, chạy:
 
-```bash
-mvn clean package -DskipTests
+> `mvn clean package -DskipTests`
+
+Lệnh chạy: `mvn clean package -DskipTests`
+
+<code>mvn clean package -DskipTests</code>
+
+Lệnh này biên dịch source code và sinh ra file `.jar` trong thư mục `target/`.
 ```
 
 Lệnh này biên dịch source code và sinh ra file `.jar` trong thư mục `target/`.
